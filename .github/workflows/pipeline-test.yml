@@ -1,4 +1,4 @@
-name: "${{ github.run_id }}. ${{ github.event.head_commit.message }}"
+name: test-pipeline
 
 on:
   push:
