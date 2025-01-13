@@ -26,7 +26,7 @@ jobs:
           docker save my-app | gzip > my-app.tar.gz
 
       - name: Upload Docker image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: my-app
           path: my-app.tar.gz
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Download Docker image
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: my-app
 
