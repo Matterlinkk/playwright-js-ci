@@ -51,11 +51,11 @@ jobs:
 
       - name: Check Playwright Report
         run: |
-          ls -la app/playwright-report || echo "No report found"
+          ls
 
       - name: Upload HTML Report Files
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: app/playwright-report/*.html
+          path: /playwright-report/*.html
           retention-days: 7
