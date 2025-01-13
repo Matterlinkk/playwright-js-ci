@@ -57,4 +57,4 @@ jobs:
 
       - name: Check Playwright Report
         run: |
-            ls -la playwright-report
+            ls -la
