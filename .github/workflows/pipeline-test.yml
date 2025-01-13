@@ -1,4 +1,4 @@
-name: test-pipeline
+name: test-runner
 
 on:
   push:
