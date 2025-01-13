@@ -47,14 +47,15 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run --rm my-app npm run tests:run
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: report
-          path: playwright-report
-          retention-days: 7
+          docker run --rm -v $PWD:/app my-app npm run tests:run
 
       - name: Check Playwright Report
         run: |
-            ls -la
+          ls -la app/playwright-report || echo "No report found"
+
+      - name: Upload HTML Report Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report
+          path: app/playwright-report/*.html
+          retention-days: 7
