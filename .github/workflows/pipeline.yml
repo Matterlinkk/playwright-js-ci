@@ -21,19 +21,15 @@ jobs:
         run: |
           docker build -t my-app .
 
-      - name: Tag the image as app:latest
-        run: |
-          docker tag app:latest my-app
-
       - name: Save Docker image
         run: |
-          docker save -o docker_app.tar my-app
+          docker save -o app_latest.tar my-app:latest
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
-          name: docker_app.tar
-          path: docker_app.tar
+          name: app_latest.tar
+          path: app_latest.tar
 
   run-tests:
     runs-on: ubuntu-latest
@@ -43,19 +39,24 @@ jobs:
       - name: Download Docker image
         uses: actions/download-artifact@v4
         with:
-          name: my-app
+          name: app_latest.tar
 
       - name: Load Docker image
         run: |
-          docker load -i docker_app.tar
+          docker load -i app_latest.tar
 
       - name: Run tests in Docker container
         run: |
-          docker run --rm -v $PWD:/app my-app npm run tests:run
+          docker run -v $PWD:/app my-app npm run tests:run
 
       - name: Check Playwright Report
         run: |
+          sleep 5
           ls
+
+      - name: List Docker images
+        run: |
+          docker images
 
       - name: Upload HTML Report Files
         uses: actions/upload-artifact@v4
