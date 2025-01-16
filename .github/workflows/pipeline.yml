@@ -54,6 +54,11 @@ jobs:
           sleep 5
           ls
 
+      - name: Check Playwright Report folder
+        run: |
+          sleep 5
+          ls playwright-report
+
       - name: List Docker images
         run: |
           docker images
@@ -62,5 +67,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: /playwright-report/*.html
+          path: /playwright-report/index.html
           retention-days: 7
