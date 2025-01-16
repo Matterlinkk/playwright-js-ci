@@ -36,6 +36,10 @@ jobs:
     needs: setting-up
 
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Download Docker image
         uses: actions/download-artifact@v4
         with:
@@ -55,11 +59,6 @@ jobs:
         run: |
           sleep 5
           ls
-
-      - name: Check Playwright Report folder
-        run: |
-          sleep 5
-          ls playwright-report
 
       - name: List Docker images
         run: |
