@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-app .
+          docker build -t my-app:latest .
 
       - name: Save Docker image
         run: |
@@ -47,7 +47,7 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v $PWD:/app my-app npm run tests:run
+          docker run -v $PWD:/app -v $PWD/playwright-report:/playwright-report my-app npm run tests:run
 
       - name: Check Playwright Report
         run: |
