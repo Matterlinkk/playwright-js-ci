@@ -47,8 +47,9 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v $PWD/playwright-report:/app/playwright-report my-app npm run tests:run
+          docker run -v $PWD:/app my-app npm run tests:run
           sleep 5
+          ls playwright-report
 
       - name: Check Playwright Report
         run: |
