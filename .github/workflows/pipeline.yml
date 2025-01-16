@@ -21,15 +21,19 @@ jobs:
         run: |
           docker build -t my-app .
 
+      - name: Tag the image as app:latest
+        run: |
+          docker tag app:latest my-app
+
       - name: Save Docker image
         run: |
-          docker save my-app | gzip > my-app.tar.gz
+          docker save -o docker_app.tar my-app
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
-          name: my-app
-          path: my-app.tar.gz
+          name: docker_app.tar
+          path: docker_app.tar
 
   run-tests:
     runs-on: ubuntu-latest
@@ -43,7 +47,7 @@ jobs:
 
       - name: Load Docker image
         run: |
-          gunzip -c my-app.tar.gz | docker load
+          docker load -i docker_app.tar
 
       - name: Run tests in Docker container
         run: |
