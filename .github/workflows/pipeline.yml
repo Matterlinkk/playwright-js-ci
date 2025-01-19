@@ -46,6 +46,9 @@ jobs:
         run: |
           docker load -i app_latest.tar
 
+      - name: ECHO DOCKER PATH
+        run: echo "${{ github.workspace }}:/app"
+
       - name: Run tests in Docker container
         run: |
           docker run -v "${{ github.workspace }}:/app" my-app npm run tests:run
