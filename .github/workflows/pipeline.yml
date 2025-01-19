@@ -34,9 +34,9 @@ jobs:
           --mount type=bind,source="$(pwd)",target=/app \
           --mount type=bind,source="$(pwd)/playwright-report",target=/app/playwright-report \
           my-app \
-          /bin/sh -c "npm install && npx playwright install && PLAYWRIGHT_HTML_REPORT=/app/playwright-report npx playwright test"
+          /bin/sh -c "npm install && npx playwright install && PLAYWRIGHT_HTML_REPORT=/app/playwright-report npm run tests:run"
 
-      - name: Upload HTML Report File
+      - name: Upload HTML Report Document
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
