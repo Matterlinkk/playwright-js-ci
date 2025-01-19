@@ -20,45 +20,10 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t my-app:latest .
-      - name: Save Docker image
-        run: |
-          docker save -o app_latest.tar my-app:latest
-      - name: Upload Docker image
-        uses: actions/upload-artifact@v4
-        with:
-          name: app_latest.tar
-          path: app_latest.tar
 
-  run-tests:
-    runs-on: ubuntu-latest
-    needs: setting-up
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Debug Current Directory
-        run: |
-          pwd
-          ls -la
-      - name: FOLDER pwd
-        run: |
-          echo "$(pwd):/app"
-
-      - name: FOLDER github.workspace
-        run: |
-          echo "${{ github.workspace }}:/app"
-      - name: Download Docker image
-        uses: actions/download-artifact@v4
-        with:
-          name: app_latest.tar
-
-      - name: Load Docker image
-        run: |
-          docker load -i app_latest.tar
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/app" -i my-app npm run tests:run
+          docker run --rm -v "$(pwd):/app" -i my-app npm run tests:run
           sleep 5
           ls
       - name: Upload HTML Report Files
