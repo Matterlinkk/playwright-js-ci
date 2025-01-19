@@ -46,17 +46,12 @@ jobs:
         run: |
           docker load -i app_latest.tar
 
-      - name: ECHO DOCKER PATH
-        run: echo "${{ github.workspace }}:/app"
+      - name: ECHO DOCKER PATH (PWD)
+        run: echo "$(pwd -W):/playwright-js-ci"
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "${{ github.workspace }}:/app" my-app npm run tests:run
-          sleep 5
-          ls
-
-      - name: Check Playwright Report
-        run: |
+          docker run -v "$(pwd -W):/playwright-js-ci" -it app bash
           sleep 5
           ls
 
