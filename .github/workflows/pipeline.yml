@@ -46,12 +46,12 @@ jobs:
 
       - name: FOLDER pwd
         run: |
-          echo "$(pwd):/playwright-js-ci"
+          echo "$(pwd):/app"
           
 
       - name: FOLDER github.workspace
         run: |
-          echo "${{ github.workspace }}:/playwright-js-ci"
+          echo "${{ github.workspace }}:/app"
 
       - name: Download Docker image
         uses: actions/download-artifact@v4
@@ -64,7 +64,7 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/playwright-js-ci" -i my-app npm run tests:run
+          docker run -v "$(pwd):/app" -i my-app npm run tests:run
           sleep 5
           ls
 
