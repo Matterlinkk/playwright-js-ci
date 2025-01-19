@@ -51,7 +51,7 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v $PWD:/app my-app npm run tests:run
+          docker run -v "$(pwd)":/app my-app npm run tests:run
           sleep 10
           ls
 
