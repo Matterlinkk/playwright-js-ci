@@ -48,8 +48,8 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd)":/app my-app npm run tests:run
-          sleep 10
+          docker run -v "${{ github.workspace }}:/app" my-app npm run tests:run
+          sleep 5
           ls
 
       - name: Check Playwright Report
@@ -57,13 +57,9 @@ jobs:
           sleep 5
           ls
 
-      - name: List Docker images
-        run: |
-          docker images
-
       - name: Upload HTML Report Files
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: /playwright-report/index.html
+          path: /playwright-report/*.html
           retention-days: 7
