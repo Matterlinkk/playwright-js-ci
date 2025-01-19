@@ -46,12 +46,9 @@ jobs:
         run: |
           docker load -i app_latest.tar
 
-      - name: ECHO DOCKER PATH (PWD)
-        run: echo "$(pwd):/playwright-js-ci"
-
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/playwright-js-ci" -i app bash
+          docker run -v "$(pwd):/playwright-js-ci" -i my-app bash
           sleep 5
           ls
 
