@@ -64,13 +64,9 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/playwright-js-ci" -it my-app bash
+          docker run -v "$(pwd):/playwright-js-ci" -i my-app npm run tests:run
           sleep 5
           ls
-
-      - name: Debug Docker Container
-        run: |
-          docker run -v "$(pwd):/playwright-js-ci" -i my-app bash -c "ls -la /playwright-js-ci"
 
       - name: Upload HTML Report Files
         uses: actions/upload-artifact@v4
