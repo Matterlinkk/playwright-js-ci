@@ -51,7 +51,7 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/playwright-js-ci" -it app bash
+          docker run -v "$(pwd):/playwright-js-ci" -i app bash
           sleep 5
           ls
 
