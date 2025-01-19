@@ -36,6 +36,8 @@ jobs:
     needs: setting-up
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Download Docker image
         uses: actions/download-artifact@v4
