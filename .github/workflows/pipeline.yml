@@ -8,7 +8,7 @@ on:
 
 jobs:
   setting-up:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -32,7 +32,7 @@ jobs:
           path: app_latest.tar
 
   run-tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: setting-up
 
     steps:
@@ -41,13 +41,12 @@ jobs:
 
       - name: Debug Current Directory
         run: |
-          pwd
+          "$(pwd -W)"
           ls -la
 
       - name: FOLDER pwd
         run: |
-          echo "$(pwd):/app"
-          
+          echo "$(pwd -W):/app"
 
       - name: FOLDER github.workspace
         run: |
@@ -64,7 +63,7 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          docker run -v "$(pwd):/app" -i my-app npm run tests:run
+          docker run -v "$(pwd -W):/app" -i my-app npm run tests:run
           sleep 20
           ls
 
