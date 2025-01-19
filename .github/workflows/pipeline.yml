@@ -23,8 +23,8 @@ jobs:
 
       - name: Run tests in Docker container
         run: |
-          mv "$(pwd):/app" ${{ runner.temp }}/repo
-          docker run --rm --mount type=bind, src="${{ runner.temp }}/repo", target="/data" -i my-app npm run tests:run
+          mv "$(pwd)" ${{ runner.temp }}/repo
+          docker run --rm --mount type=bind, src="${{ runner.temp }}/repo", target="/app" -i my-app npm run tests:run
           sleep 5
           ls
       - name: Upload HTML Report Files
