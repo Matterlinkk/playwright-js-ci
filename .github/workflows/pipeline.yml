@@ -65,7 +65,7 @@ jobs:
       - name: Run tests in Docker container
         run: |
           docker run -v "$(pwd):/app" -i my-app npm run tests:run
-          sleep 5
+          sleep 20
           ls
 
       - name: Upload HTML Report Files
