@@ -9,6 +9,8 @@ on:
 jobs:
   setting-up:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -21,15 +23,31 @@ jobs:
         run: |
           docker build -t my-app:latest .
 
+      - name: Create report directory
+        run: |
+          mkdir -p $(pwd)/playwright-report
+          chmod -R 777 $(pwd)/playwright-report
+
       - name: Run tests in Docker container
         run: |
-          mv "$(pwd)" ${{ runner.temp }}/repo
-          docker run --mount type=bind,src="${{ runner.temp }}/repo",dst="/app" -i my-app npm run tests:run
-          sleep 5
-          ls ${{ runner.temp }}/repo
-      - name: Upload HTML Report Files
+          docker run \
+          --mount type=bind,source="$(pwd)",target=/app \
+          --mount type=bind,source="$(pwd)/playwright-report",target=/app/playwright-report \
+          my-app \
+          /bin/sh -c "npm install && npx playwright install && PLAYWRIGHT_HTML_REPORT=/app/playwright-report npx playwright test"
+
+      - name: Upload HTML Report File
         uses: actions/upload-artifact@v4
         with:
-          name: html-report
-          path: ${{ runner.temp }}/repo/playwright-report/*.html
+          name: playwright-report
+          path: playwright-report/
           retention-days: 7
+
+      - name: Deploy to GitHub Pages
+        if: success() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GHUB_PAGES_TOKEN }}
+          publish_dir: ./playwright-report
+          keep_files: false
+          force_orphan: true
