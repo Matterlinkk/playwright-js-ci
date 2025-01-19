@@ -47,7 +47,7 @@ jobs:
           docker load -i app_latest.tar
 
       - name: ECHO DOCKER PATH (PWD)
-        run: echo "$(pwd -W):/playwright-js-ci"
+        run: echo "$(pwd):/playwright-js-ci"
 
       - name: Run tests in Docker container
         run: |
