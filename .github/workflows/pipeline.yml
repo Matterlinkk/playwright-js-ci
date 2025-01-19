@@ -26,10 +26,10 @@ jobs:
           mv "$(pwd)" ${{ runner.temp }}/repo
           docker run --mount type=bind,src="${{ runner.temp }}/repo",dst="/app" -i my-app npm run tests:run
           sleep 5
-          ls
+          ls ${{ runner.temp }}/repo
       - name: Upload HTML Report Files
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: /playwright-report/*.html
+          path: ${{ runner.temp }}/repo/playwright-report/*.html
           retention-days: 7
