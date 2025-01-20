@@ -25,14 +25,14 @@ jobs:
 
       - name: Create report directory
         run: |
-          mkdir -p $(pwd)/playwright-report
-          chmod -R 777 $(pwd)/playwright-report
+#          mkdir -p $(pwd)/playwright-report
+#          chmod -R 777 $(pwd)/playwright-report
 
       - name: Run tests in Docker container
         run: |
           docker run \
           --mount type=bind,source="$(pwd)",target=/app \
-          --mount type=bind,source="$(pwd)/playwright-report",target=/app/playwright-report \
+#          --mount type=bind,source="$(pwd)/playwright-report",target=/app/playwright-report \
           my-app \
           /bin/sh -c "PLAYWRIGHT_HTML_REPORT=/app/playwright-report npm run tests:run"
 
