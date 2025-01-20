@@ -23,8 +23,8 @@ jobs:
         run: |
           docker build -t my-app:latest .
 
-      - name: Create report directory
-        run: |
+#      - name: Create report directory
+#        run: |
 #          mkdir -p $(pwd)/playwright-report
 #          chmod -R 777 $(pwd)/playwright-report
 
