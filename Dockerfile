@@ -1,9 +1,7 @@
 FROM mcr.microsoft.com/playwright:v1.49.1-jammy
 
-WORKDIR /playwright-js-ci
+WORKDIR /app
 
-COPY package*.json /playwright-js-ci/
+COPY package*.json ./
 RUN npm install
 RUN npx playwright install
-
-COPY . /playwright-js-ci
