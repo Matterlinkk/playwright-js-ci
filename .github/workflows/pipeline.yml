@@ -29,7 +29,7 @@ jobs:
           docker run \
           --mount type=bind,source="$(pwd)",target=/app \
           my-app \
-          /bin/sh -c "PLAYWRIGHT_HTML_REPORT=/app/playwright-report npm run tests:run"
+          /bin/sh -c "npm install && PLAYWRIGHT_HTML_REPORT=/app/playwright-report npm run tests:run"
 
       - name: Upload HTML Report Document
         uses: actions/upload-artifact@v4
